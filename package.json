@@ -1,0 +1,16 @@
+{
+  "name": "rest_api_dev",
+  "version": "1.0.0",
+  "description": "rest_api_development_with_nodejs_express_mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
