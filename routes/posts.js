@@ -8,8 +8,16 @@ const router = express.Router();
 
 // using this router instaed of app
 // just like this we can have posts router/ user router/ and else
-router.get("/", (req, res) => {
-  res.send("Server is running.. in /Posts");
+// Get all posts
+router.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.json(posts);
+  } catch (err) {
+    res.json({
+      message: err
+    });
+  }
 });
 
 // testing by passing data using postman/ POST/ Body/ raw/ json -- result - undefined
@@ -20,6 +28,7 @@ router.get("/", (req, res) => {
 //now you have to install it separately. This body-parser module parses the JSON,
 // buffer string and URL encoded data submitted using HTTP POST request.
 // now go to the server file to import and it just need one line of code.
+// Submits a post
 router.post("/", async (req, res) => {
   //console.log(req.body);
 
