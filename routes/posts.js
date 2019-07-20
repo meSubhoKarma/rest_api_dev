@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 //now you have to install it separately. This body-parser module parses the JSON,
 // buffer string and URL encoded data submitted using HTTP POST request.
 // now go to the server file to import and it just need one line of code.
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   //console.log(req.body);
 
   // lets post the entries to db by using the schema
@@ -32,16 +32,18 @@ router.post("/", (req, res) => {
   // save the post/ then parse the data as json to see-on-screen/ and catch error if any
   // test on postman/ POST --
   // {"title": "first test post", "description": "this is a description"}
-  post
-    .save()
-    .then(data => {
-      res.json(data);
-    })
-    .catch(err => {
+
+  // simplifying with async/await and to catch error enclosing the call with try{}
+  try {
+    const savedPost = await post.save();
+    res.json(savedPost);
+  } catch {
+    err => {
       res.json({
         message: err
       });
-    });
+    };
+  }
 });
 
 module.exports = router;
