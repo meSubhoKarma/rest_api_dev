@@ -1,25 +1,25 @@
 // Import
 const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv/config");
 
 // Execute
 const app = express();
 
-// Middlewares
-// A function that executes when/ where ever we
-// need to execute inside a route
-app.use("/posts", () => {
-  console.log("Middleware running..");
-});
+// Import Routes
+const postsRoutes = require("./routes/posts");
 
-//////////// REST API ////////////
+app.use("/posts", postsRoutes);
+
 // ROUTES
 app.get("/", (req, res) => {
   res.send("Server is running.. in /Root");
 });
 
-app.get("/posts", (req, res) => {
-  res.send("Server is running.. in /Posts");
-});
+// Connect to DB
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
+  console.log("DB is Connected!")
+);
 
 // Listen
 app.listen(9000);
