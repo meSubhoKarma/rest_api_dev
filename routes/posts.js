@@ -21,7 +21,27 @@ router.get("/", (req, res) => {
 // buffer string and URL encoded data submitted using HTTP POST request.
 // now go to the server file to import and it just need one line of code.
 router.post("/", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
+
+  // lets post the entries to db by using the schema
+  const post = new Post({
+    title: req.body.title,
+    description: req.body.description
+  });
+
+  // save the post/ then parse the data as json to see-on-screen/ and catch error if any
+  // test on postman/ POST --
+  // {"title": "first test post", "description": "this is a description"}
+  post
+    .save()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.json({
+        message: err
+      });
+    });
 });
 
 module.exports = router;
